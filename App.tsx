@@ -4,9 +4,10 @@
  *
  * @format
  */
-
+import { Provider } from "react-redux";
+import storeSaga from "./src/application/config";
 import React from 'react';
-import type {PropsWithChildren} from 'react';
+import type { PropsWithChildren } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -16,7 +17,7 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-
+import { Characters } from "./src/screens/characterScreen/Characters";
 import {
   Colors,
   DebugInstructions,
@@ -29,7 +30,7 @@ type SectionProps = PropsWithChildren<{
   title: string;
 }>;
 
-function Section({children, title}: SectionProps): JSX.Element {
+function Section({ children, title }: SectionProps): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
   return (
     <View style={styles.sectionContainer}>
@@ -63,6 +64,7 @@ function App(): JSX.Element {
   };
 
   return (
+
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
@@ -76,20 +78,14 @@ function App(): JSX.Element {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
+
+          <Section title="Ricky and Morty Characters">
+            <Provider store={storeSaga}>
+              <Characters />
+            </Provider>
+
           </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+
         </View>
       </ScrollView>
     </SafeAreaView>
